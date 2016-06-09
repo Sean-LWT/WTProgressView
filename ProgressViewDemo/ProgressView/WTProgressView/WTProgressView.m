@@ -30,6 +30,7 @@
     [super setFrame:frame];
     self.layer.cornerRadius = frame.size.height/2.0;
     self.clipsToBounds = YES;
+    self.progressView.frame = CGRectMake(-self.frame.size.height/2.0, 0, self.frame.size.width+self.frame.size.height, self.frame.size.height);
 }
 
 - (void)drawRect:(CGRect)rect;
