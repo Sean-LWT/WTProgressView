@@ -19,7 +19,7 @@
     [super viewDidLoad];
     self.title = @"ProgressView";
     
-    UITableView* bgTableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
+    UITableView* bgTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     bgTableView.delegate = self;
     bgTableView.dataSource = self;
     [self.view addSubview:bgTableView];
@@ -48,11 +48,13 @@
         
         WTProgressView* progressView = [WTProgressView new];
         [cell.contentView addSubview:progressView];
+        progressView.gradientColors = @[[UIColor orangeColor], [UIColor yellowColor]];
         progressView.progress = 0;
-        progressView.gradientColors = @[[UIColor orangeColor],[UIColor yellowColor]];
         progressView.frame = CGRectMake(20, 35, 200, 10);
-        progressView.edgeColor = [UIColor orangeColor];
-        progressView.bgColor = [UIColor whiteColor];
+        progressView.layer.borderColor = [UIColor orangeColor].CGColor;
+        progressView.layer.borderWidth = 1.0;
+        progressView.backgroundColor = [UIColor whiteColor];
+        progressView.layer.cornerRadius = 5.0;
         progressView.tag = 1;
     }
     return cell;

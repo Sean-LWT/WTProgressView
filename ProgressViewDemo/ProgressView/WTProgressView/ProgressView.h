@@ -9,9 +9,9 @@
 
 @interface ProgressView : UIView
 
-/** 颜色数组 */
-@property (nonatomic,strong,nonnull)NSArray* gradientColors;
+/** 渐变色 */
+@property (nonatomic, strong, nonnull)NSArray<UIColor* >* gradientColors;
 /** 进度 */
-@property (nonatomic,assign)CGFloat progress;
+@property (nonatomic, assign)CGFloat progress;
 
 @end

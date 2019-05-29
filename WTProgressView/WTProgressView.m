@@ -6,6 +6,7 @@
 //
 
 #import "WTProgressView.h"
+#import "ProgressView.h"
 
 @interface WTProgressView ()
 
@@ -21,50 +22,27 @@
     if (self)
     {
         self.backgroundColor = [UIColor whiteColor];
+        self.clipsToBounds = YES;
     }
     return self;
 }
 
-- (void)setFrame:(CGRect)frame;
+- (void)layoutSubviews;
 {
-    [super setFrame:frame];
-    self.layer.cornerRadius = frame.size.height/2.0;
-    self.clipsToBounds = YES;
+    [super layoutSubviews];
     self.progressView.frame = CGRectMake(-self.frame.size.height/2.0, 0, self.frame.size.width+self.frame.size.height, self.frame.size.height);
 }
 
-- (void)drawRect:(CGRect)rect;
+- (ProgressView* )progressView;
 {
-    if (!self.progressView)
+    if (_progressView == nil)
     {
-        self.progressView = [[ProgressView alloc] initWithFrame:CGRectMake(-self.frame.size.height/2.0, 0, self.frame.size.width+self.frame.size.height, self.frame.size.height)];
-        [self addSubview:self.progressView];
-        self.progressView.progress = self.progress;
-        self.progressView.gradientColors = self.gradientColors;
+        _progressView = [[ProgressView alloc] initWithFrame:CGRectMake(-self.frame.size.height/2.0, 0, self.frame.size.width+self.frame.size.height, self.frame.size.height)];
+        [self addSubview:_progressView];
+        _progressView.progress = self.progress;
+        _progressView.gradientColors = self.gradientColors;
     }
-}
-
-- (void)setBgColor:(UIColor *)bgColor;
-{
-    _bgColor = bgColor;
-    if ([bgColor isKindOfClass:[UIColor class]])
-    {
-        self.backgroundColor = bgColor;
-    }
-}
-
-- (void)setEdgeColor:(UIColor *)edgeColor;
-{
-    _edgeColor = edgeColor;
-    if ([edgeColor isKindOfClass:[UIColor class]])
-    {
-        self.layer.borderColor = edgeColor.CGColor;
-        self.layer.borderWidth = 1;
-    }
-    else
-    {
-        self.layer.borderWidth = 0;
-    }
+    return _progressView;
 }
 
 - (void)setProgress:(CGFloat)progress;
@@ -79,6 +57,12 @@
     }
     _progress = progress;
     self.progressView.progress = progress;
+}
+
+- (void)setGradientColors:(NSArray<UIColor *> *)gradientColors;
+{
+    _gradientColors = gradientColors;
+    self.progressView.gradientColors = gradientColors;
 }
 
 @end
